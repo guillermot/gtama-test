@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>
+        Example
+    </title>
+</head>
+
+<body>
+    <h1 class="title-online">helloooaaa</h1>
+    <p>a service worker that works offline</p>
+    <input id="text" type="text" />
+    <button id="go">Gooooo</button>
+    <input id="result" type="text" multiple="multiple" col="10" rows="10" />
+    <script src="sw.js"></script>
+    <script>
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.register('/sw.js')
+                .catch(function (err) {
+                    console.error('Unable to register service worker.', err);
+                });
+        }
+
+        document.querySelector('#go').addEventListener('click', ()=>{
+            let title = document.querySelector('h1');
+            let txt = document.querySelector('#text').value;
+            let url = 'https://www.httpbind.ogr/get?q=' + txt;
+            fetch(url).then((event)=>{
+
+                console.log('THEN');
+            })
+            .catch((event)=>{
+                console.log('CATCH');
+            });;
+        });
+    </script>
+</body>
+
+</html>
