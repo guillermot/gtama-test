@@ -4,21 +4,41 @@
     <title>
         Example
     </title>
+    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
+    <template id='list-item'>
+        <li>
+            
+        </li>
+    </template>
     <h1 class="title-online">helloooaaa</h1>
     <p>a service worker that works offline</p>
     <input id="text" type="text" value="facecece" />
     <button id="go">Gooooo</button><br/>
     <textarea id="result" cols="100" rows="20"></textarea>
-    <script src="sw.js"></script>
+    <ul id="list">
+    </ul>
     <script>
         if (navigator.serviceWorker) {
             navigator.serviceWorker.register('/sw.js')
-                .catch(function (err) {
+                .catch(function(err) {
                     console.error('Unable to register service worker.', err);
                 });
+        }
+
+        let updateList = function() {
+            let list = document.querySelector('#list');
+            list.innerHTML = '';
+
+            let itemTemplate = document.querySelector('#list-item');
+            for (let key in window.localStorage) {
+                let item = document.importNode(itemTemplate.content, true);
+                item.querySelector('li').innerHTML = key;
+
+                list.appendChild(item);
+            }
         }
 
         document.querySelector('#go').addEventListener('click', () => {
@@ -45,11 +65,12 @@
 
                 if (item) {
                     result.value = item;
-                }
-                else {
+                } else {
                     result.value = 'No connection';
                 }
-            });;
+            }).then(() =>
+                updateList()
+            );
         });
     </script>
 </body>
