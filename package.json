@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "workbox-sw": "^1.1.0"
+  },
+  "devDependencies": {
+  }
 }

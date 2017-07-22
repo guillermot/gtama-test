@@ -9,9 +9,9 @@
 <body>
     <h1 class="title-online">helloooaaa</h1>
     <p>a service worker that works offline</p>
-    <input id="text" type="text" />
-    <button id="go">Gooooo</button>
-    <input id="result" type="text" multiple="multiple" col="10" rows="10" />
+    <input id="text" type="text" value="facecece" />
+    <button id="go">Gooooo</button><br/>
+    <textarea id="result" cols="100" rows="20"></textarea>
     <script src="sw.js"></script>
     <script>
         if (navigator.serviceWorker) {
@@ -21,16 +21,34 @@
                 });
         }
 
-        document.querySelector('#go').addEventListener('click', ()=>{
+        document.querySelector('#go').addEventListener('click', () => {
             let title = document.querySelector('h1');
             let txt = document.querySelector('#text').value;
-            let url = 'https://www.httpbind.ogr/get?q=' + txt;
-            fetch(url).then((event)=>{
+            let result = document.querySelector('#result');
+            let url = 'https://www.httpbin.org/get?q=' + txt;
+            fetch(url).then((response) => {
+                let data = {
+                    id: response.url,
+                    json: response
+                };
 
-                console.log('THEN');
-            })
-            .catch((event)=>{
-                console.log('CATCH');
+                return response.json();
+            }).then((json) => {
+                let str = JSON.stringify(json);
+                result.value = str;
+                window.localStorage.setItem(url, str);
+
+                title.style.color = "green";
+            }).catch((event) => {
+                let item = window.localStorage.getItem(url);
+                title.style.color = "red";
+
+                if (item) {
+                    result.value = item;
+                }
+                else {
+                    result.value = 'No connection';
+                }
             });;
         });
     </script>
