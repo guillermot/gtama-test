@@ -17,27 +17,18 @@ importScripts('workbox-sw.prod.v1.1.0.js');
  * manifest which accounts for changes to local files and update the revision
  * accordingly.
  */
-const fileManifest = [
-  {
-    "url": "index.html",
-    "revision": "9faee97d89d08c9621bf762a8235491d"
-  },
-  {
-    "url": "manifest.json",
-    "revision": "32c4cfd0979ea796ba0db9903d9c4e9b"
-  },
-  {
-    "url": "node_modules/workbox-sw\\package.json",
-    "revision": "f3f0ef9d7799dcb4ec7025a5bd865592"
-  },
-  {
-    "url": "package.json",
-    "revision": "7c45ebd9aecc4307e7d704a4d7fbce46"
-  },
-  {
-    "url": "styles.css",
-    "revision": "a280677841fc2fc2a5254ab012f554ea"
-  }
+const fileManifest = [{
+        "url": "index.html",
+        "revision": "9faee97d89d08c9621bf762a8235491d"
+    },
+    {
+        "url": "manifest.json",
+        "revision": "32c4cfd0979ea796ba0db9903d9c4e9b"
+    },
+    {
+        "url": "styles.css",
+        "revision": "a280677841fc2fc2a5254ab012f554ea"
+    }
 ];
 
 const workboxSW = new self.WorkboxSW();
